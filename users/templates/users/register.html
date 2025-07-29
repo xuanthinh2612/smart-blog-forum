@@ -1,0 +1,13 @@
+{% extends "baselayout.html" %} 
+
+{% block content%}
+
+  <h2>Đăng ký</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <button type="submit">Đăng ký</button>
+  </form>
+
+{% endblock %}

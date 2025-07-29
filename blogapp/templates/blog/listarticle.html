@@ -1,0 +1,82 @@
+{% extends "baselayout.html" %} 
+
+{% block content%}
+    {% if not page_obj %}
+        <h5>Bạn không có bài viết nào.</h5>
+        <a href="{% url 'homepage' %}">Về trang chủ</a>
+    {% else %}
+        <h2>Dach sách bài viết</h2>
+        <table class="table">
+            <thread>
+                <tr>
+                    <td>Image</td>
+                    <td>Title</td>
+                    <td>Content</td>
+                    <td>Author</td>
+                    <td>Category</td>
+                    <td>Order</td>
+                    <td>Created at</td>
+                    <td>Edit</td>
+                </tr>
+            </thread>
+            <tbody>
+                {% for article in page_obj %}
+                    <tr>
+                        <td> 
+                            {% if article.image %}
+                                <img src="{{ article.image.url }}" alt="image" width="40" height="40" class="rounded-circle me-2">
+                            {% else %}
+                                NoImage
+                            {% endif %} 
+                        
+                        </td>
+                        <td>
+                            <a href={% url 'viewarticle' article.slug %}>{{article.title}}</a>
+                        </td>
+                        <td> {{article.content}} </td>
+                        <td> {{article.author}} </td>
+                        <td> {{article.category}} </td>
+                        <td> {{article.order}} </td>
+                        <td> {{article.created_at}} </td>
+                        <td> 
+                            <a href="{% url 'updatearticle' article.slug %}">Edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Pagination controls -->
+        <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">Đầu</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">←</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Đầu</span></li>
+                <li class="page-item disabled"><span class="page-link">←</span></li>
+            {% endif %}
+
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">→</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Cuối</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">→</span></li>
+                <li class="page-item disabled"><span class="page-link">Cuối</span></li>
+            {% endif %}
+        </ul>
+        </nav>
+
+    {% endif %}
+
+{% endblock %}

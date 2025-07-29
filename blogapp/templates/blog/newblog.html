@@ -1,0 +1,12 @@
+{% extends "baselayout.html" %} 
+
+{% block content%}
+
+  <h2>Tạo mới blog</h2>
+  <form method="post" enctype="multipart/form-data" class="form-control">
+    {% csrf_token %}
+    {{ article_form.as_p }}
+    <button type="submit">Lưu bài viết</button>
+  </form>
+
+{% endblock %}

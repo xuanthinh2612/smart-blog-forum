@@ -1,0 +1,41 @@
+{% extends "baselayout.html" %} 
+
+
+{% block content%}
+    <h1>Smart Blog</h1>
+    {% if user.is_authenticated %}
+        <ul>
+            <li>
+                {% if user.is_staff %}
+                    <h5><a href="/admin">Admin Page</a></h5>
+                {% endif %}
+                <ul>
+                    <li>
+                        <a href="{% url 'update_profile' %}">Update Profile</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'createarticle' %}">Create Article</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'listarticle' %}">List Article</a>
+                    </li>
+                </ul>
+                {% comment %} <a href="{% url 'listtask' %}" >Danh sách task</a> {% endcomment %}
+            </li>
+        </ul>
+    {% endif %}
+    
+    <h1>Các bài viết nổi bật</h1>
+
+    {% for category, articles  in  set_article_list.items %}
+        <h4>{{category.title}}</h4>
+        <ul>
+            {% for article in articles%}
+                <li>
+                    <a href={% url 'viewarticle' article.slug%}>{{article.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+{% endblock %}
