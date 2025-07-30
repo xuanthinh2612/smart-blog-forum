@@ -5,7 +5,6 @@ from django.utils.text import slugify
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 
-
 @login_required(login_url="login")
 def create_article(request):
     if request.method == 'POST':
@@ -56,9 +55,11 @@ def list_article(request):
 def view_article(request, slug):
     article = get_object_or_404(Article, slug=slug)
     comment_form = CommentForm()
+
     context = {
         'article': article,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+
     }
     return render(request, 'blog/articleview.html', context)
 

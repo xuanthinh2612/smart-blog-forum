@@ -38,11 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'crispy_bootstrap5',
     'users',
     'blogapp',
-    'django_cleanup.apps.CleanupConfig'
+    'django_cleanup.apps.CleanupConfig',
+    'tinymce'
 ]
 
 MIDDLEWARE = [
@@ -112,8 +111,6 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGIN_REDIRECT_URL = '/'         # sau khi login sẽ chuyển về /
 LOGOUT_REDIRECT_URL = '/login/'  # sau khi logout
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),

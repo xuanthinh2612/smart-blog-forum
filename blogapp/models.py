@@ -1,5 +1,6 @@
 from django.db import models
 from .helper import *
+from tinymce.models import HTMLField
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
@@ -21,7 +22,7 @@ class Article(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey("users.CustomUser", related_name='articles', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name='articles', on_delete=models.CASCADE)
-    content = models.TextField()
+    content = HTMLField()
     status =  models.CharField(max_length=10, choices=STATUS_CHOICE, default="draft")
     order = models.IntegerField()
     image = models.ImageField(upload_to=get_file_path)

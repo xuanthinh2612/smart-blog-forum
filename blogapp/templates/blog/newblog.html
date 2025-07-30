@@ -1,12 +1,62 @@
 {% extends "baselayout.html" %} 
 
+{% load static %}
+
 {% block content%}
-
+<div class="col-6 mx-auto">
   <h2>Tạo mới blog</h2>
-  <form method="post" enctype="multipart/form-data" class="form-control">
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ article_form.as_p }}
-    <button type="submit">Lưu bài viết</button>
-  </form>
+    <div class="mb-3">
+      <label for="{{ article_form.title.id_for_label }}" class="form-label">🔖 Tiêu đề</label>
+      {{ article_form.title }}
+      {{ article_form.title.errors }}
+    </div>
 
-{% endblock %}
+    <div class="mb-3">
+      <label for="{{ article_form.category.id_for_label }}" class="form-label">Thể loại</label>
+      {{ article_form.category }}
+      {{ article_form.category.errors }}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ article_form.content.id_for_label }}" class="form-label">Nội dung</label>
+      {{ article_form.content }}
+      {{ article_form.content.errors }}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ article_form.status.id_for_label }}" class="form-label">Trạng thái</label>
+      {{ article_form.status }}
+      {{ article_form.status.errors }}
+    </div>
+    
+    <div class="mb-3">
+      <label for="{{ article_form.order.id_for_label }}" class="form-label">Thứ tự ưu tiên</label>
+      {{ article_form.order }}
+      {{ article_form.order.errors }}
+    </div>
+    <div class="mb-3">
+      <label for="{{ article_form.image.id_for_label }}" class="form-label">Chọn file</label>
+      {{ article_form.image }}
+      {{ article_form.image.errors }}
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-3">Lưu bài viết</button>
+  </form>
+</div>
+
+  <!-- Thêm JS của TinyMCE -->
+  <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+<script>
+    tinymce.init({
+    selector: 'textarea.tinymce',
+    license_key: '',
+    menubar: false,
+    plugins: 'lists link image code',
+    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+    branding: false,
+    valid_elements: "p,strong,em,ul,ol,li,br,span[style],a[href],img[src|alt|width|height]",
+    invalid_elements: "script,iframe,object",
+  });
+</script>{% endblock %}
