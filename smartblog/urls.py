@@ -27,5 +27,11 @@ urlpatterns = [
 
 ]
 
+# nếu trên product thì sẽ phải config cho nginx vào được folder để lấy ảnh
+# Ví dụ:  nginx config
+#  location /media/ {
+#     alias /path/to/your/media_root/;
+#     # Có thể thêm các config cache, quyền truy cập nếu cần
+# }
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
